@@ -10,7 +10,8 @@ from gtts import gTTS
 
 
 
-print("\033[1;32;40m")
+# print("\033[1;32;40m")
+os.system("clear")
 t1 = gTTS(f'Welcome{config.username}' , lang = 'en' , tld = 'com.au')
 t1.save("audio/welcome.mp3")
 
