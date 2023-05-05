@@ -6,3 +6,4 @@ wikipedia
 requests
 pyjokes
 speechrecognition
+sr
