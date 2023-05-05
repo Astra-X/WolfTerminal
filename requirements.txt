@@ -1,2 +1,8 @@
 playsound==1.2.2
 gtts
+tld
+pyttsx3
+wikipedia
+requests
+pyjokes
+speechrecognition
