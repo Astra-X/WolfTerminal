@@ -7,4 +7,3 @@ requests
 pyjokes
 speechrecognition
 sr
-readline
