@@ -4,6 +4,7 @@ import os
 import datetime
 import speech_recognition as sr
 from random import choice
+# import chatterbot
 import wikipedia
 import webbrowser
 import time
@@ -24,7 +25,7 @@ engine.setProperty('volume', 1.0)
 #Set voice
 
 voices = engine.getProperty('voices')
-engine.setProperty('voice',voices[1].id)
+engine.setProperty('voice',voices[0].id)
 
 
 
@@ -105,7 +106,7 @@ if __name__ == '__main__':
             exit()
             
         if 'search' in query:
-            query = query.replace("open", "")
+            query = query.replace("search", "")
             # open_ = webbrowser.open(query)
             if 'on youtube' in query:
                 query = query.replace("on youtube", "")
@@ -122,11 +123,21 @@ if __name__ == '__main__':
             locate = query.replace('locate', "")
             filepath = findfile(locate, "/")
             print(filepath)
+        if 'notepad' in query:
+            # open_ = query.replace('open',"")
+            os.system("C:\\Windows\\notepad.exe")
+        
+        if 'brave'in query:
+            os.system("C:\\Windows\\notepad.exe")
+                
+        
+            
+            
+            
             
             
         # if 'open notepad' in query:
         #     query = query.replace("open", "")
         #     os.system("C:\Windows\\notepad.exe")
             
-            
-    
+        
