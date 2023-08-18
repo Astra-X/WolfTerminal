@@ -6,4 +6,5 @@ wikipedia
 requests
 pyjokes
 speechrecognition
-sr
+spotdl
+youtube_dl

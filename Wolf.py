@@ -1,17 +1,21 @@
 import pyttsx3
 # from decouple import config
+import pyautogui 
+import pywhatkit as kit
 import os
 import datetime
 import speech_recognition as sr
 from random import choice
+import youtube_dl
 # import chatterbot
 import wikipedia
 import webbrowser
 import time
+import spotdl
 # from utils import opening_text
 
-USERNAME = os.getlogin()
-BOTNAME = "Astra"
+USERNAME = "saaz"
+BOTNAME = "Lucy"
 
 engine = pyttsx3.init('sapi5')
 
@@ -25,7 +29,7 @@ engine.setProperty('volume', 1.0)
 #Set voice
 
 voices = engine.getProperty('voices')
-engine.setProperty('voice',voices[0].id)
+engine.setProperty('voice',voices[1].id)
 
 
 
@@ -35,6 +39,18 @@ opening_text = [
     "Just a second sir.",
 ]
 
+def download_song(url):
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+    }
+
+    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+        ydl.download([url])
 
 def speak(text):
     engine.say(text)
@@ -48,7 +64,7 @@ def greet_user():
         speak(f"Good afternoon {USERNAME}")
     elif (hour >= 16) and (hour < 19):
         speak(f"Good Evening {USERNAME}")
-    speak(f"I am {BOTNAME}. How may I assist you?")
+    # speak(f"I am {BOTNAME}. How may I assist you?")
     
 def take_user_input():
     r = sr.Recognizer()
@@ -82,6 +98,8 @@ def findfile(name, path):
         if name in filename:
             return os.path.join(dirpath, name)
         
+
+        
     
 
 
@@ -105,39 +123,58 @@ if __name__ == '__main__':
             speak('Hope you liked me. I Think we can do many projects together. Have a nice day.')
             exit()
             
-        if 'search' in query:
-            query = query.replace("search", "")
-            # open_ = webbrowser.open(query)
-            if 'on youtube' in query:
-                query = query.replace("on youtube", "")
-                open_ = webbrowser.open("https://www.youtube.com/results?search_query=" + query)
-                
-                
-                
-                
-            
+        # if 'search' in query:
+        #     query = query.replace("search", "")
+        #     # open_ = webbrowser.open(query)
+        #     if 'on youtube' in query:
+        #         query = query.replace("on youtube", "")
+        #         open_ = webbrowser.open("https://www.youtube.com/results?search_query=" + query)    
         if 'wait a second' in query:
             time.sleep(5)
             
-        if 'locate' in query:
-            locate = query.replace('locate', "")
-            filepath = findfile(locate, "/")
-            print(filepath)
+        # if 'locate' in query:
+        #     locate = query.replace('locate', "")
+        #     filepath = findfile(locate, "/")
+        #     print(filepath)
+            
         if 'notepad' in query:
             # open_ = query.replace('open',"")
-            os.system("C:\\Windows\\notepad.exe")
+            os.system("start apps\\notepad")
         
         if 'brave'in query:
-            os.system("C:\\Windows\\notepad.exe")
+            os.system("start apps\\brave")
                 
-        
+        if 'download' in query:
+            if 'from youtube' in query:
+                # query = query.replace(["download","from youtube"],"")
+                song_url = "https://www.youtube.com/watch?v=0XyV-vw5II4"
+                download_song(song_url)
+                
+                
+                
+                    # pywhatkit
+                
+                
+                
+        if 'play' in query:
+            if 'youtube' in query:
+                query = query.replace("on youtube","")
+                kit.playonyt(query)
             
+        if 'whatsapp' in query:
+            speak("whom you want to send message")
+            whatsapp_number = take_user_input()
+            speak("what's the message")
+            whatsapp_msg = take_user_input()
             
+            kit.sendwhatmsg_instantly("+91" + whatsapp_number,whatsapp_msg)
+            # time.sleep(3)
+            # pyautogui.click()
+            # time.sleep(2)
+            pyautogui.press("enter")
             
-            
-            
-        # if 'open notepad' in query:
-        #     query = query.replace("open", "")
-        #     os.system("C:\Windows\\notepad.exe")
-            
+        if 'what is' in query:
+            query1 = query.replace("what is","")
+            speak(kit.info((query1), lines = 1))
+            # print("\nSuccessfully Searched")
         
