@@ -8,3 +8,5 @@ pyjokes
 speechrecognition
 spotdl
 youtube_dl
+pycairo
+pygobject
